@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="globalCompany.CustomerMapper">
+  <select id="findCustomerContact" resultType="map">
+    SELECT cc.cust_no, cc.contact_value
+    FROM global_company.customer_contacts cc
+    WHERE cc.cust_no = #{custNo}
+  </select>
+  <select id="findProductSales" resultType="map">
+    SELECT soi.product_code, soi.order_quantity, soi.order_item_amount
+    FROM global_company.sales_order_items soi
+    WHERE soi.product_code = #{productCode}
+  </select>
+</mapper>
