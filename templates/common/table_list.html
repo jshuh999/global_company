@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load common_extras %}
+
+{% block title %}{{ config.label }}{% endblock %}
+
+{% block content %}
+<div class="toolbar">
+  <div>
+    <h1>{{ config.label }}</h1>
+    <div class="muted">{{ config.schema }}.{{ config.table }}</div>
+  </div>
+  {% if not config.readonly %}
+    <a class="button primary" href="{% url 'common:table-create' config.key %}">등록</a>
+  {% else %}
+    <span class="readonly">조회 전용</span>
+  {% endif %}
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        {% for field in fields %}<th>{{ field.label }}<br><span class="muted">{{ field.name }}</span></th>{% endfor %}
+        <th>작업</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in page_obj %}
+        {% pk_path_value config row as row_pk %}
+        <tr>
+          {% for field in fields %}
+            <td>{{ row|get_item:field.name }}</td>
+          {% endfor %}
+          <td>
+            <a href="{% url 'common:table-detail' config.key row_pk %}">상세</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="{{ fields|length|add:1 }}">데이터가 없습니다.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="actions">
+  {% if page_obj.has_previous %}
+    <a class="button" href="?page={{ page_obj.previous_page_number }}">이전</a>
+  {% endif %}
+  <span class="muted">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a class="button" href="?page={{ page_obj.next_page_number }}">다음</a>
+  {% endif %}
+</div>
+{% endblock %}

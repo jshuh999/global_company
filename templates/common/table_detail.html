@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load common_extras %}
+
+{% block title %}{{ config.label }} 상세{% endblock %}
+
+{% block content %}
+<div class="toolbar">
+  <div>
+    <h1>{{ config.label }} 상세</h1>
+    <div class="muted">{{ config.schema }}.{{ config.table }}</div>
+  </div>
+  <a class="button" href="{% url 'common:table-list' config.key %}">목록</a>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <tbody>
+      {% for field in fields %}
+        <tr>
+          <th>{{ field.label }}<br><span class="muted">{{ field.name }}</span></th>
+          <td>{{ row|get_item:field.name }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if not config.readonly %}
+  <div class="actions">
+    <a class="button primary" href="{{ update_url }}">수정</a>
+    <a class="button danger" href="{{ delete_url }}">삭제</a>
+  </div>
+{% endif %}
+{% endblock %}

@@ -5,9 +5,10 @@ Data Governance 리니지 검증용 Django 업무 웹 시스템입니다.
 ## 구성
 
 - Django project: global_company
-- 업무 app: common, customer, product, sales, salesforce, organization, accounting
+- 업무 app: common
 - DB schema: global_company
-- 명시적 SQL: sql/lineage_queries.sql, sql/mybatis/customer_mapper.xml, common/repositories.py
+- 명시적 SQL: sql/lineage_queries.sql, common/repositories.py
+- MyBatis XML은 사용하지 않아 제거했습니다.
 
 ## 실행
 

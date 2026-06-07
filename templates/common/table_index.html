@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}테이블 목록{% endblock %}
+
+{% block content %}
+<div class="toolbar">
+  <div>
+    <h1>테이블 목록</h1>
+    <div class="muted">운영 대상 global_company 테이블 8개</div>
+  </div>
+</div>
+
+<div class="grid">
+  {% for table in tables %}
+    <a class="tile" href="{% url 'common:table-list' table.key %}">
+      <strong>{{ table.label }}</strong>
+      <span class="muted">{{ table.schema }}.{{ table.table }}</span>
+      {% if table.readonly %}<div class="readonly">조회 전용</div>{% endif %}
+    </a>
+  {% endfor %}
+</div>
+{% endblock %}

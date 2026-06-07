@@ -1,21 +1,16 @@
 -- lineage verification SQL samples
-SELECT c.cust_no, c.customer_name, cc.contact_value
-FROM global_company.customers c
-JOIN global_company.customer_contacts cc ON cc.customer_id = c.customer_id
-WHERE c.cust_no = :cust_no;
+SELECT c."CUST_ID", c."CUST_NM", c."EADDR", c."PHONE_NO"
+FROM global_company."CUSTOMER" c
+WHERE c."CUST_ID" = :cust_id;
 
-SELECT p.product_code, p.product_name, i.stock_quantity
-FROM global_company.products p
-JOIN global_company.product_inventory i ON i.product_id = p.product_id
-WHERE p.product_code = :product_code;
+SELECT ca."CUST_ID", ca."ADDR_NM", ca."ZIP_CD", ca."RSLT_ADDR1", ca."RSLT_ADDR2"
+FROM global_company."CUSTOMER_ADDR" ca
+WHERE ca."CUST_ID" = :cust_id;
 
-SELECT so.order_no, so.cust_no, soi.product_code, soi.order_item_amount
-FROM global_company.sales_orders so
-JOIN global_company.sales_order_items soi ON soi.order_id = so.order_id
-WHERE so.order_no = :order_no;
+SELECT p."PROD_CD", p."PROD_NM", p."PROD_DVSN_CD", p."NTSL_PRC", p."STOCK_QTY"
+FROM global_company."PRODUCT" p
+WHERE p."PROD_CD" = :prod_cd;
 
-SELECT v.voucher_no, a.account_subject_code, vl.line_amount
-FROM global_company.vouchers v
-JOIN global_company.voucher_lines vl ON vl.voucher_id = v.voucher_id
-JOIN global_company.account_subjects a ON a.account_subject_id = vl.account_subject_id
-WHERE v.voucher_no = :voucher_no;
+SELECT oi."ORD_NO", oi."PROD_ORD", oi."PROD_CD", oi."QTY", oi."UNPRC", oi."AMT"
+FROM global_company."ORDER_ITEM" oi
+WHERE oi."ORD_NO" = :ord_no;

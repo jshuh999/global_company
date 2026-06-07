@@ -13,12 +13,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "common",
-    "customer",
-    "product",
-    "sales",
-    "salesforce",
-    "organization",
-    "accounting",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
