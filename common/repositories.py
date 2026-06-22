@@ -3,9 +3,9 @@ from django.db import connection
 
 def fetch_customer_contact(cust_no: str):
     sql = """
-    SELECT c."CUST_ID", c."CUST_NM", c."EADDR", c."PHONE_NO"
-    FROM global_company."CUSTOMER" c
-    WHERE c."CUST_ID" = %s
+    SELECT c.cst_id, c.cst_nm, c.eaddr, c.telno
+    FROM global_company.customer c
+    WHERE c.cst_id = %s
     """
     with connection.cursor() as cursor:
         cursor.execute(sql, [cust_no])
@@ -14,10 +14,10 @@ def fetch_customer_contact(cust_no: str):
 
 def fetch_order_items(order_no: str):
     sql = """
-    SELECT oi."ORD_NO", oi."PROD_ORD", oi."PROD_CD", oi."QTY", oi."UNPRC", oi."AMT"
-    FROM global_company."ORDER_ITEM" oi
-    WHERE oi."ORD_NO" = %s
-    ORDER BY oi."PROD_ORD"
+    SELECT oi.ord_no, oi.prod_ord, oi.prod_cd, oi.qty, oi.unprc, oi.amt
+    FROM global_company.order_item oi
+    WHERE oi.ord_no = %s
+    ORDER BY oi.prod_ord
     """
     with connection.cursor() as cursor:
         cursor.execute(sql, [order_no])
